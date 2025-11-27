@@ -73,7 +73,7 @@ const Register: React.FC = () => {
         status: true,
         created_at: nowIso,
         updated_at: nowIso,
-        deletet_at: null as any,
+        deleted_at: null as any,
       };
       const { error } = await supabase.from('users').insert(payload);
 
