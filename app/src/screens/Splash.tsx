@@ -9,7 +9,7 @@ const Splash = ({ onFinish }: {onFinish:() => void } ) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             onFinish();
-        }, 5000);
+        }, 2500);
         return () => clearTimeout(timer);
     }, [onFinish]);
 

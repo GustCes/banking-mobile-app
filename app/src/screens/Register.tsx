@@ -1,19 +1,19 @@
+import { PostgrestError } from '@supabase/supabase-js';
+import * as bcrypt from 'bcryptjs';
 import React, { useState } from 'react';
-import { 
-    View, 
-    Text, 
-    TextInput, 
-    TouchableOpacity, 
-    StyleSheet, 
-    Alert, 
-    ActivityIndicator, 
-    KeyboardAvoidingView, 
-    Platform, 
-    ScrollView 
+import {
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { supabase } from '../../lib/supabase';
-import { PostgrestError } from '@supabase/supabase-js';
-import bcrypt from 'bcryptjs';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -48,6 +48,8 @@ const Register: React.FC = () => {
   };
 
   const handleRegister = async () => {
+    console.log('Register button clicked');
+    
     const err = validate();
     if (err) {
       Alert.alert('Validation', err);
@@ -56,20 +58,22 @@ const Register: React.FC = () => {
 
     try {
       setLoading(true);
+      console.log('Starting registration...');
 
       const hashed = await bcrypt.hash(password, 10);
+      console.log('Password hashed');
 
       const nowIso = new Date().toISOString();
       const payload = {
         firstname: firstname.trim(),
         lastname: lastname.trim(),
         mobile: mobile.trim(),
-        email: email.trim().toLowerCase(),
+        email: email.trim(),
         password: hashed,
         status: true,
         created_at: nowIso,
         updated_at: nowIso,
-        deletet_at: null, as Any,
+        deletet_at: null as any,
       };
       const { error } = await supabase.from('users').insert(payload);
 

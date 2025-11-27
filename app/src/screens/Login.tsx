@@ -6,24 +6,22 @@
     expo install react-native-get-random-values   # si usas Expo
 */
 
-import 'react-native-get-random-values';
-import Register from './Register';
-import Register from './home';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
   ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+import 'react-native-get-random-values';
 import { supabase } from '../../lib/supabase';
-import { useRouter } from 'expo-router';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -82,7 +80,7 @@ const Login: React.FC = () => {
       // login exitoso
       Alert.alert('Success', 'Signed in successfully');
       // Redirigir a la pantalla principal (ajusta la ruta según tu app)
-      router.push('/home');
+      router.push('./index');
     } catch (e: any) {
       const message = e?.message || 'Unknown error';
       console.error('Login failed:', e);
@@ -94,7 +92,7 @@ const Login: React.FC = () => {
 
   const goToRegister = () => {
     // Ajusta la ruta si tu archivo de register está en otra ruta
-    router.push('./Register');
+    router.push('/src/screens/Register');
   };
 
   return (
